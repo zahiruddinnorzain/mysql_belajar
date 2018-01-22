@@ -21,3 +21,11 @@ buat column baru nilai dia tolak 1
 ep17:
 SELECT name, UPPER(name) FROM customers
 buat column baru yang uppercase
+
+SELECT cost, SQRT(cost) FROM items
+ade function SQRT(COST)
+
+SELECT AVG(cost) FROM items
+ni untuk kira average dkt cost
+
+SUM()
