@@ -1,0 +1,19 @@
+ep14:
+SELECT name FROM items WHERE name LIKE '_ boxes of frogs'
+SELECT name FROM items WHERE name LIKE '% boxes of frogs'
+
+ep15:
+SELECT name FROM items where name REGEXP 'new'
+SELECT name FROM items where name REGEXP '[12345] boxes of frog'
+SELECT name FROM items where name REGEXP '[^12345] boxes of frog'
+^=not
+
+ep16:
+SELECT CONCAT(city, ', ', state) FROM customers
+gabungan 2 column
+
+SELECT CONCAT(city, ', ', state) AS new_address FROM customers
+nak bagi nama dekat column
+
+SELECT name, cost, cost-1 AS sale_price FROM items
+buat column baru nilai dia tolak 1
