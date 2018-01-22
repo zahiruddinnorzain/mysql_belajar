@@ -17,3 +17,7 @@ nak bagi nama dekat column
 
 SELECT name, cost, cost-1 AS sale_price FROM items
 buat column baru nilai dia tolak 1
+
+ep17:
+SELECT name, UPPER(name) FROM customers
+buat column baru yang uppercase
