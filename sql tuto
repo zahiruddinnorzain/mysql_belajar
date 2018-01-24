@@ -36,7 +36,7 @@ ep18:
 SELECT COUNT(name) FROM items
 SELECT COUNT(name) FROM items WHERE seller_id=6
 SELECT AVG(cost) FROM items WHERE seller_id=6
-===
+====
 SELECT COUNT(*) AS item_count,
 MAX(cost) AS max,
 AVG(cost) AS avg
@@ -60,7 +60,7 @@ ep20:
 SELECT AVG(cost) FROM items
 #DAPAT KAN AVG COST
 
-===
+====
 SELECT name, cost FROM items WHERE cost>(
 
 SELECT AVG(cost) FROM items
@@ -72,7 +72,7 @@ ep21:
 SELECT seller_id, name FROM items WHERE name LIKE'%boxes of frogs'
 #nak carik siapa jual boxes of frogs
 
-===
+====
 SELECT name, MIN(cost) FROM items WHERE name LIKE'%boxes of frogs' AND seller_id IN(
 
 SELECT seller_id FROM items WHERE name LIKE'%boxes of frogs'
@@ -82,10 +82,50 @@ SELECT seller_id FROM items WHERE name LIKE'%boxes of frogs'
 #nak carik siapa jual boxes of frogs yang harga palingmurah
 
 ep22:
-===
+====
 SELECT customers.id, customers.name, items.name, items.cost
 FROM customers, items
 WHERE customers.id=seller_id
 ORDER BY customers.id
 ===
 # dia nak gabung kan dua table dengan column id yang sama nama(gabung customers dgn items table)
+
+ep23:
+====
+SELECT i.seller_id, i.name, c.id
+FROM customers AS c, items AS i
+WHERE i.seller_id=c.id
+===
+#nak bagi nickname
+
+====
+SELECT customers.name, items.name
+FROM customers LEFT OUTER JOIN items
+ON customers.id=seller_id
+===
+#OUTER JOIN(https://www.youtube.com/watch?v=cXQOSQo_RDI&index=23&list=PL32BC9C878BA72085)
+
+ep24:
+====
+SELECT name, cost, bids FROM items WHERE bids>190
+UNION
+SELECT name, cost, bids FROM items WHERE cost>1000
+===
+#UNION
+#remove duplicate entry
+
+====
+SELECT name, cost, bids FROM items WHERE bids>190
+UNION ALL
+SELECT name, cost, bids FROM items WHERE cost>1000
+===
+#UNION. Display all duplicate entry
+
+ep25:
+SELECT name, cost FROM items WHERE Match(name) Against('baby')
+#search full text name
+
+====
+SELECT name, cost FROM items WHERE Match(name) Against('+baby -coat' IN BOOLEAN MODE)
+===
+#NO BABY COAT SEARCH tapi baby lain ada 
