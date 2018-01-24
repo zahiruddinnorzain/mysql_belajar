@@ -2,6 +2,8 @@ ep14:
 SELECT name FROM items WHERE name LIKE '_ boxes of frogs'
 SELECT name FROM items WHERE name LIKE '% boxes of frogs'
 
+SELECT seller_id FROM items ORDER BY seller_id 
+
 ep15:
 SELECT name FROM items where name REGEXP 'new'
 SELECT name FROM items where name REGEXP '[12345] boxes of frog'
@@ -10,22 +12,80 @@ SELECT name FROM items where name REGEXP '[^12345] boxes of frog'
 
 ep16:
 SELECT CONCAT(city, ', ', state) FROM customers
-gabungan 2 column
+#gabungan 2 column
 
 SELECT CONCAT(city, ', ', state) AS new_address FROM customers
-nak bagi nama dekat column
+#nak bagi nama dekat column
 
 SELECT name, cost, cost-1 AS sale_price FROM items
-buat column baru nilai dia tolak 1
+#buat column baru nilai dia tolak 1
 
 ep17:
 SELECT name, UPPER(name) FROM customers
-buat column baru yang uppercase
+#buat column baru yang uppercase
 
 SELECT cost, SQRT(cost) FROM items
-ade function SQRT(COST)
+#ade function SQRT(COST)
 
 SELECT AVG(cost) FROM items
-ni untuk kira average dkt cost
+#ni untuk kira average dkt cost
 
 SUM()
+
+ep18:
+SELECT COUNT(name) FROM items
+SELECT COUNT(name) FROM items WHERE seller_id=6
+SELECT AVG(cost) FROM items WHERE seller_id=6
+===
+SELECT COUNT(*) AS item_count,
+MAX(cost) AS max,
+AVG(cost) AS avg
+FROM items WHERE seller_id=12
+===
+
+ep19:
+SELECT seller_id, COUNT(*) AS item_count FROM items WHERE seller_id=2
+
+SELECT seller_id, COUNT(*) AS item_count FROM items GROUP BY seller_id
+#ni untuk display semua seller_id, tak perlu tukar nombor 2 3 4..
+
+SELECT seller_id, COUNT(*) AS item_count FROM items GROUP BY seller_id HAVING COUNT(*)>=3
+
+k#awan GROUP adalah HAVING
+
+SELECT seller_id, COUNT(*) AS item_count FROM items GROUP BY seller_id HAVING COUNT(*)>=3 ORDER BY item_count DESC
+#nak bagi dia susun
+
+ep20:
+SELECT AVG(cost) FROM items
+#DAPAT KAN AVG COST
+
+===
+SELECT name, cost FROM items WHERE cost>(
+
+SELECT AVG(cost) FROM items
+
+) ORDER by cost DESC
+===
+
+ep21:
+SELECT seller_id, name FROM items WHERE name LIKE'%boxes of frogs'
+#nak carik siapa jual boxes of frogs
+
+===
+SELECT name, MIN(cost) FROM items WHERE name LIKE'%boxes of frogs' AND seller_id IN(
+
+SELECT seller_id FROM items WHERE name LIKE'%boxes of frogs'
+
+)
+===
+#nak carik siapa jual boxes of frogs yang harga palingmurah
+
+ep22:
+===
+SELECT customers.id, customers.name, items.name, items.cost
+FROM customers, items
+WHERE customers.id=seller_id
+ORDER BY customers.id
+===
+# dia nak gabung kan dua table dengan column id yang sama nama(gabung customers dgn items table)
